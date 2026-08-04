@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Разработка ERP под ваш бизнес — предложение</title>
+<style>
+/* ================== БАЗА ================== */
+:root{
+  --ink:#0F172A;
+  --muted:#5B6B85;
+  --blue:#1D4ED8;
+  --blue2:#2563EB;
+  --blue3:#3B82F6;
+  --tint:#EFF4FF;
+  --tint2:#E1EAFF;
+  --line:#DBE5FF;
+  --gray:#F1F5F9;
+  --red:#DC2626;
+  --redbg:#FEF2F2;
+  --green:#059669;
+  --greenbg:#ECFDF5;
+  --amber:#D97706;
+  --amberbg:#FFFBEB;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#E7EAF0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color:var(--ink);
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+
+/* Страница = экран смартфона: 100 x 178 мм (9:16) */
+@page{ size:100mm 178mm; margin:0; }
+.page{
+  position:relative;
+  width:100mm; height:178mm;
+  overflow:hidden;
+  background:#fff;
+  margin:0 auto 6mm;
+  padding:9mm 8mm 10mm;
+  box-shadow:0 2mm 6mm rgba(15,23,42,.18);
+  page-break-after:always;
+  break-after:page;
+  display:flex;
+  flex-direction:column;
+}
+.page:last-child{page-break-after:auto;break-after:auto;margin-bottom:0}
+@media print{
+  html,body{background:#fff}
+  .page{margin:0;box-shadow:none}
+}
+
+/* ================== ТИПОГРАФИКА ================== */
+.kicker{
+  font-size:6.6pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--blue2);margin-bottom:2.6mm;flex:0 0 auto;
+}
+h1{font-size:24pt;line-height:1.14;font-weight:800;letter-spacing:-.02em}
+h2{font-size:17pt;line-height:1.18;font-weight:800;letter-spacing:-.01em;flex:0 0 auto}
+h3{font-size:10pt;line-height:1.25;font-weight:700}
+p{font-size:9pt;line-height:1.45;color:var(--muted)}
+.lead{font-size:10pt;line-height:1.42;color:var(--muted);margin-top:3.4mm;flex:0 0 auto}
+b,strong{font-weight:700;color:var(--ink)}
+.hr{height:.35mm;background:var(--line);margin:4mm 0}
+.pageno{
+  position:absolute;right:8mm;bottom:5mm;
+  font-size:5.4pt;color:#9AA8BE;letter-spacing:.06em;
+}
+.brandmark{
+  position:absolute;left:8mm;bottom:5mm;
+  font-size:5.4pt;color:#9AA8BE;letter-spacing:.06em;
+}
+
+/* ================== ОБЛОЖКА / ФИНАЛ ================== */
+.dark{
+  background:linear-gradient(155deg,#1E3A8A 0%,#1D4ED8 42%,#2F6BF0 78%,#3B82F6 100%);
+  color:#fff;
+}
+.dark h1,.dark h2,.dark h3,.dark b{color:#fff}
+.dark p{color:#C7D8FF}
+.dark .kicker{color:#A8C4FF}
+.dark .pageno,.dark .brandmark{color:rgba(255,255,255,.45)}
+.cover-grid{
+  position:absolute;inset:0;opacity:.16;
+  background-image:linear-gradient(rgba(255,255,255,.5) .18mm,transparent .18mm),
+                   linear-gradient(90deg,rgba(255,255,255,.5) .18mm,transparent .18mm);
+  background-size:7mm 7mm;
+}
+.cover-body{position:relative;height:100%;display:flex;flex-direction:column}
+.cover-tags{display:flex;flex-wrap:wrap;gap:1.8mm;margin-top:auto;padding-bottom:6mm}
+.tag{
+  font-size:7pt;font-weight:600;padding:1.6mm 3mm;border-radius:8mm;
+  border:.3mm solid rgba(255,255,255,.45);color:#fff;
+}
+.cover-foot{border-top:.3mm solid rgba(255,255,255,.3);padding-top:4.5mm}
+.cover-phone{font-size:13pt;font-weight:800;letter-spacing:.01em}
+
+/* ================== КАРТОЧКИ ================== */
+.stack{display:flex;flex-direction:column;gap:2.6mm;margin-top:4.5mm;flex:1 1 auto;justify-content:space-between}
+.card{
+  border:.3mm solid var(--line);border-radius:2.6mm;padding:3.4mm 3.6mm;background:#fff;
+  display:flex;gap:3mm;align-items:flex-start;
+}
+.card.tinted{background:var(--tint);border-color:var(--tint2)}
+.num{
+  flex:0 0 auto;width:6.4mm;height:6.4mm;border-radius:1.8mm;
+  background:var(--blue);color:#fff;font-size:8.4pt;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+.num.red{background:var(--red)}
+.card-t{font-size:9.6pt;font-weight:700;line-height:1.2;margin-bottom:1.1mm}
+.card-d{font-size:8.2pt;line-height:1.36;color:var(--muted)}
+
+/* Пункты-галочки */
+.checks{display:flex;flex-direction:column;gap:2.4mm;margin-top:4mm;flex:1 1 auto;justify-content:space-between}
+.chk{display:flex;gap:2.8mm;align-items:flex-start}
+.chk .ic{
+  flex:0 0 auto;width:5.2mm;height:5.2mm;border-radius:50%;
+  background:var(--tint);color:var(--blue);
+  display:flex;align-items:center;justify-content:center;font-size:7pt;font-weight:800;
+}
+.chk .ic.x{background:var(--redbg);color:var(--red)}
+
+/* ================== ЭКРАНЫ АДМИНКИ ================== */
+.screen{
+  border:.3mm solid #C9D6EE;border-radius:2.8mm;overflow:hidden;
+  box-shadow:0 1.2mm 3.4mm rgba(29,78,216,.14);
+  background:#fff;margin-top:4.5mm;
+  flex:1 1 auto;display:flex;flex-direction:column;min-height:0;
+}
+.sc-chrome{
+  height:5.2mm;background:#E8EEFB;border-bottom:.25mm solid #D3DFF6;
+  display:flex;align-items:center;padding:0 2.2mm;gap:1.1mm;
+}
+.dot{width:1.4mm;height:1.4mm;border-radius:50%;background:#C2CFE6}
+.sc-url{
+  margin-left:1.8mm;font-size:5.4pt;color:#7C8CA8;background:#fff;
+  border-radius:4mm;padding:.6mm 2.6mm;
+}
+.sc-body{display:flex;min-height:0;flex:1 1 auto}
+.sc-chrome{flex:0 0 auto}
+.sb{
+  flex:0 0 19.5mm;background:#0F2A63;color:#C7D8FF;padding:2.2mm 1.5mm;
+}
+.sb-logo{
+  font-size:5.6pt;font-weight:800;color:#fff;letter-spacing:.04em;
+  padding:0 .6mm 2mm;border-bottom:.25mm solid rgba(255,255,255,.16);margin-bottom:1.8mm;
+}
+.sb-grp{font-size:4.4pt;letter-spacing:.12em;color:#7E9AD8;margin:1.6mm 0 .9mm .6mm}
+.sb-i{
+  display:flex;align-items:center;gap:1.2mm;font-size:5.4pt;
+  padding:1mm .8mm;border-radius:1.2mm;color:#C7D8FF;
+}
+.sb-i svg{width:2.7mm;height:2.7mm;flex:0 0 auto;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.sb-i.on{background:var(--blue2);color:#fff;font-weight:700}
+.sc-main{flex:1;min-width:0;padding:2.6mm;background:#F7F9FE;display:flex;flex-direction:column}
+.sc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2.2mm;flex:0 0 auto}
+.sc-h{font-size:7.4pt;font-weight:800}
+.btn{
+  font-size:5.4pt;font-weight:700;color:#fff;background:var(--blue2);
+  border-radius:1.2mm;padding:1.1mm 2.2mm;
+}
+.btn.ghost{background:#fff;color:var(--blue2);border:.25mm solid var(--line)}
+.btn.green{background:var(--green)}
+
+/* Плитки KPI */
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:1.7mm}
+.kpi{background:#fff;border:.25mm solid #E3EAF7;border-radius:1.8mm;padding:1.8mm}
+.kpi-l{font-size:4.8pt;color:#8494AE;letter-spacing:.04em;text-transform:uppercase}
+.kpi-v{font-size:8.6pt;font-weight:800;margin-top:.6mm;letter-spacing:-.02em}
+.kpi-d{font-size:4.8pt;font-weight:700;margin-top:.5mm}
+.up{color:var(--green)} .down{color:var(--red)}
+
+/* График */
+.chart{background:#fff;border:.25mm solid #E3EAF7;border-radius:1.8mm;padding:2mm;margin-top:1.7mm;
+       flex:1 1 auto;display:flex;flex-direction:column;min-height:0}
+.chart-t{font-size:5.2pt;color:#8494AE;margin-bottom:1.5mm;letter-spacing:.04em;text-transform:uppercase;flex:0 0 auto}
+.bars{display:flex;align-items:flex-end;gap:1.4mm;height:12mm;flex:1 1 auto}
+.bar{flex:1;background:linear-gradient(180deg,#60A5FA,#2563EB);border-radius:.6mm .6mm 0 0}
+.bar.hi{background:linear-gradient(180deg,#1D4ED8,#1E3A8A)}
+.blabels{display:flex;gap:1.4mm;margin-top:1mm}
+.blabels span{flex:1;text-align:center;font-size:4.4pt;color:#9AA8BE}
+
+/* Таблицы внутри экранов */
+.tbl{background:#fff;border:.25mm solid #E3EAF7;border-radius:1.8mm;overflow:hidden;
+     flex:1 1 auto;display:flex;flex-direction:column}
+.tr{display:flex;align-items:center;padding:1.6mm 1.8mm;border-bottom:.2mm solid #EEF2FA;font-size:5.8pt;flex:1 1 auto}
+.tr.head{flex:0 0 auto}
+.tr:last-child{border-bottom:0}
+.tr.head{background:#F2F6FE;font-size:4.8pt;color:#7C8CA8;letter-spacing:.05em;text-transform:uppercase;font-weight:700}
+.tr.tot{background:#F2F6FE;font-weight:800;font-size:6pt;border-top:.25mm solid #E3EAF7}
+.tr .c{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.r{text-align:right}
+.pill{
+  display:inline-block;font-size:4.6pt;font-weight:700;border-radius:4mm;
+  padding:.6mm 1.6mm;line-height:1.25;white-space:nowrap;
+}
+.p-new{background:var(--tint);color:var(--blue)}
+.p-prod{background:var(--amberbg);color:var(--amber)}
+.p-ready{background:#EEF2FF;color:#4F46E5}
+.p-ship{background:var(--greenbg);color:var(--green)}
+.p-paid{background:var(--green);color:#fff}
+.p-late{background:var(--redbg);color:var(--red)}
+
+/* Полосы прогресса склада */
+.prog{height:1.1mm;background:#EEF2FA;border-radius:2mm;overflow:hidden;margin-top:.8mm}
+.prog i{display:block;height:100%;background:var(--blue2);border-radius:2mm}
+.prog i.low{background:var(--red)}
+.prog i.mid{background:var(--amber)}
+
+/* Телефон */
+.phone{
+  width:58mm;margin:auto;border:.8mm solid #14213D;border-radius:6mm;
+  padding:1.6mm;background:#14213D;box-shadow:0 1.6mm 4mm rgba(15,23,42,.24);flex:0 0 auto;
+}
+.ph-screen{background:#F7F9FE;border-radius:4.4mm;overflow:hidden}
+.ph-notch{height:2.8mm;display:flex;align-items:center;justify-content:center}
+.ph-notch i{display:block;width:13mm;height:1.1mm;border-radius:2mm;background:#14213D}
+.ph-hd{background:var(--blue);color:#fff;padding:2.4mm 2.8mm}
+.ph-hd .t{font-size:8pt;font-weight:800}
+.ph-hd .s{font-size:5.8pt;color:#C7D8FF;margin-top:.5mm}
+.ph-b{padding:2.8mm}
+.ph-row{display:flex;justify-content:space-between;font-size:6.6pt;padding:1.6mm 0;border-bottom:.2mm solid #E6ECF8}
+.ph-row b{font-weight:700}
+.ph-btn{
+  display:block;text-align:center;font-size:7.6pt;font-weight:800;color:#fff;
+  background:var(--blue2);border-radius:2.2mm;padding:2.8mm 0;margin-top:2.2mm;
+}
+.ph-btn.g{background:var(--green)}
+.ph-btn.o{background:#fff;color:var(--blue2);border:.3mm solid var(--line)}
+
+/* Выгоды под скрином */
+.gains{display:flex;flex-direction:column;gap:2.2mm;margin-top:4mm;flex:0 0 auto}
+.gains.push{margin-top:auto;padding-top:4mm}
+.gain{display:flex;gap:2.6mm;align-items:flex-start;font-size:8.6pt;line-height:1.34;color:var(--muted)}
+.gain i{
+  flex:0 0 auto;width:4.4mm;height:4.4mm;border-radius:50%;background:var(--tint);
+  color:var(--blue);font-size:6pt;font-weight:800;font-style:normal;
+  display:flex;align-items:center;justify-content:center;margin-top:.4mm;
+}
+
+/* Таблица «было / стало» */
+.ba{border:.3mm solid var(--line);border-radius:2.6mm;overflow:hidden;margin-top:4.5mm;
+    flex:1 1 auto;display:flex;flex-direction:column}
+.ba-r{display:flex;border-bottom:.2mm solid var(--line);flex:1 1 auto;align-items:stretch}
+.ba-r:last-child{border-bottom:0}
+.ba-r.h{background:var(--tint);flex:0 0 auto}
+.ba-c{padding:2mm 2.4mm;font-size:8.2pt;line-height:1.28;display:flex;align-items:center}
+.ba-c.k{flex:0 0 22mm;font-weight:700;font-size:8pt;background:#FBFCFF;border-right:.2mm solid var(--line)}
+.ba-c.was{flex:1;color:var(--red);border-right:.2mm solid var(--line)}
+.ba-c.now{flex:1;color:var(--green);font-weight:600}
+.ba-r.h .ba-c{font-weight:800;font-size:7pt;color:var(--ink);text-transform:uppercase;letter-spacing:.06em}
+
+/* Этапы */
+.steps{display:flex;flex-direction:column;gap:0;margin-top:5mm;flex:1 1 auto}
+.step{display:flex;gap:3.4mm;align-items:flex-start;position:relative;padding-bottom:6mm;flex:1 1 auto}
+.step:last-child{padding-bottom:0}
+.step .rail{
+  position:absolute;left:3.2mm;top:7.4mm;bottom:0;width:.35mm;background:var(--line);
+}
+.step:last-child .rail{display:none}
+.step .n{
+  flex:0 0 auto;width:6.4mm;height:6.4mm;border-radius:50%;background:var(--blue);
+  color:#fff;font-size:8pt;font-weight:800;display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:1;
+}
+
+/* Расчёт потерь */
+.calc{border:.3mm solid var(--line);border-radius:2.6mm;overflow:hidden;margin-top:4.5mm;
+      flex:1 1 auto;display:flex;flex-direction:column}
+.calc-r{display:flex;align-items:center;padding:2.6mm;border-bottom:.2mm solid var(--line);flex:1 1 auto}
+.calc-r:last-child{border-bottom:0}
+.calc-l{flex:1;min-width:0}
+.calc-t{font-size:8.8pt;font-weight:700;line-height:1.2}
+.calc-f{font-size:7pt;color:#9AA8BE;margin-top:.8mm;line-height:1.3}
+.calc-v{font-size:10pt;font-weight:800;color:var(--red);white-space:nowrap;padding-left:2mm}
+.calc-note{
+  background:var(--tint);border-radius:2.2mm;padding:3mm;margin-top:3.4mm;flex:0 0 auto;
+  font-size:8.2pt;line-height:1.38;color:#1E3A8A;
+}
+
+/* Шкала 10% */
+.usage{margin-top:4.5mm;border:.3mm solid var(--line);border-radius:2.4mm;padding:3.2mm;flex:0 0 auto}
+.usage-t{display:flex;justify-content:space-between;font-size:7.4pt;font-weight:700;margin-bottom:2mm}
+.usage-bar{height:5mm;border-radius:2.5mm;background:var(--gray);overflow:hidden;display:flex}
+.usage-bar i{display:block;height:100%;background:var(--blue);width:10%}
+.usage-legend{display:flex;justify-content:space-between;font-size:6.6pt;color:#9AA8BE;margin-top:1.6mm}
+
+/* О разработчике */
+.skill{border:.3mm solid var(--line);border-radius:2.8mm;padding:3.2mm;margin-top:3.2mm}
+.skill.acc{background:var(--tint);border-color:var(--tint2)}
+.skill-badge{
+  display:inline-block;font-size:6pt;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--blue);color:#fff;border-radius:4mm;padding:1.1mm 2.6mm;margin-bottom:2mm;
+}
+.skill-badge.alt{background:#0F2A63}
+.cases{display:flex;gap:2.6mm;margin-top:auto;padding-top:4mm}
+.case{
+  flex:1;border:.3mm solid var(--line);border-radius:2.6mm;padding:3mm;background:#fff;
+}
+.case-l{font-size:5.6pt;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue2)}
+.case-t{font-size:8.8pt;font-weight:800;margin-top:1.2mm;line-height:1.2}
+.case-d{font-size:7.2pt;color:var(--muted);margin-top:1.4mm;line-height:1.34}
+
+/* Контакты */
+.cta-box{
+  border:.4mm solid rgba(255,255,255,.35);border-radius:3.2mm;padding:4.6mm;
+  background:rgba(255,255,255,.08);margin-top:auto;text-align:center;
+}
+.cta-phone{font-size:20pt;font-weight:800;letter-spacing:.01em;color:#fff}
+.cta-sub{font-size:7.2pt;color:#C7D8FF;margin-top:1.8mm;letter-spacing:.1em;text-transform:uppercase}
+.final-list{display:flex;flex-direction:column;gap:3mm;margin-top:6mm}
+.final-list div{font-size:8.8pt;color:#DCE7FF;display:flex;gap:2.8mm;align-items:flex-start;line-height:1.35}
+.final-list em{font-style:normal;color:#A8C4FF;font-weight:800}
+</style>
+</head>
+<body>
+
+<!-- ============ 1. ОБЛОЖКА ============ -->
+<section class="page dark">
+  <div class="cover-grid"></div>
+  <div class="cover-body">
+    <div class="kicker">Разработка ERP и CRM под заказ</div>
+    <h1>Своя система<br>под ваш бизнес,<br>а не бизнес<br>под чужую<br>программу</h1>
+    <p class="lead">Учёт, склад, заказы, долги и отчёты — собраны так, как реально работает ваше предприятие. Ничего лишнего.</p>
+    <div class="cover-tags">
+      <span class="tag">Производство</span>
+      <span class="tag">Торговля</span>
+      <span class="tag">Склад и логистика</span>
+      <span class="tag">Услуги</span>
+    </div>
+    <div class="cover-foot">
+      <p style="font-size:6pt;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.6mm">Связаться</p>
+      <div class="cover-phone">+7 707 175 1983</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. БОЛЬ: БЛОКНОТ И EXCEL ============ -->
+<section class="page">
+  <div class="kicker">Боль первая</div>
+  <h2>Бизнес живёт<br>в тетради и Excel</h2>
+  <p class="lead">Пока обороты небольшие — работает. Дальше начинает сыпаться, и каждый сбой стоит денег.</p>
+
+  <div class="stack">
+    <div class="card"><div class="num red">1</div><div>
+      <div class="card-t">Заказ просто забыли</div>
+      <div class="card-d">Клиент позвонил, записали на полях. Машина не поехала — клиент ушёл к соседям.</div>
+    </div></div>
+    <div class="card"><div class="num red">2</div><div>
+      <div class="card-t">Долг всплыл через месяц</div>
+      <div class="card-d">Кто должен и сколько — помнит один человек. Он в отпуске.</div>
+    </div></div>
+    <div class="card"><div class="num red">3</div><div>
+      <div class="card-t">Остаток «примерно»</div>
+      <div class="card-d">Продали то, чего нет. Или везли товар, который и так лежал на складе.</div>
+    </div></div>
+    <div class="card"><div class="num red">4</div><div>
+      <div class="card-t">Отчёт — это полдня руками</div>
+      <div class="card-d">Сводят вечером, к утру он уже неправдивый. Решения принимаются по устаревшим цифрам.</div>
+    </div></div>
+    <div class="card"><div class="num red">5</div><div>
+      <div class="card-t">Ушёл менеджер — ушла база</div>
+      <div class="card-d">Контакты, договорённости и история клиентов остались в его телефоне.</div>
+    </div></div>
+  </div>
+
+  <div class="brandmark">Предложение по автоматизации</div>
+  <div class="pageno">02</div>
+</section>
+
+<!-- ============ 3. ЦЕНА БЕЗДЕЙСТВИЯ ============ -->
+<section class="page">
+  <div class="kicker">Считаем потери</div>
+  <h2>Сколько вы теряете<br>каждый месяц</h2>
+  <p class="lead">Эти деньги никто не считает — они просто не доходят. Пример для среднего предприятия за один месяц:</p>
+
+  <div class="calc">
+    <div class="calc-r">
+      <div class="calc-l">
+        <div class="calc-t">Потерянные заявки</div>
+        <div class="calc-f">10 заявок × средний чек 150 000 ₸</div>
+      </div>
+      <div class="calc-v">1 500 000 ₸</div>
+    </div>
+    <div class="calc-r">
+      <div class="calc-l">
+        <div class="calc-t">Зависшая дебиторка</div>
+        <div class="calc-f">8 клиентов × 200 000 ₸ вне оборота</div>
+      </div>
+      <div class="calc-v">1 600 000 ₸</div>
+    </div>
+    <div class="calc-r">
+      <div class="calc-l">
+        <div class="calc-t">Лишние и пустые рейсы</div>
+        <div class="calc-f">4 рейса × 40 000 ₸ из-за неверных остатков</div>
+      </div>
+      <div class="calc-v">160 000 ₸</div>
+    </div>
+    <div class="calc-r">
+      <div class="calc-l">
+        <div class="calc-t">Отчёты вручную</div>
+        <div class="calc-f">3 сотрудника × 6 часов в неделю</div>
+      </div>
+      <div class="calc-v">72 часа</div>
+    </div>
+  </div>
+
+  <div class="calc-note">
+    Цифры условные — подставьте свои. У большинства предприятий месячные потери оказываются больше, чем разовая стоимость системы.
+  </div>
+
+  <div class="brandmark">Предложение по автоматизации</div>
+  <div class="pageno">03</div>
+</section>
+
+<!-- ============ 4. БОЛЬ: КОРОБОЧНАЯ CRM ============ -->
+<section class="page">
+  <div class="kicker">Боль вторая</div>
+  <h2>Готовая программа<br>не подходит<br>вашему делу</h2>
+  <p class="lead">Она написана для «бизнеса вообще». Вашего процесса в ней нет.</p>
+
+  <div class="checks">
+    <div class="chk"><span class="ic x">✕</span><div>
+      <h3>«Так система не умеет»</h3>
+      <p>Ваш процесс приходится ломать под чужие поля и чужие статусы.</p>
+    </div></div>
+    <div class="chk"><span class="ic x">✕</span><div>
+      <h3>Доработать нельзя</h3>
+      <p>Нужного отчёта нет — и не будет. Ждёте, пока разработчик программы решит, что он нужен всем.</p>
+    </div></div>
+    <div class="chk"><span class="ic x">✕</span><div>
+      <h3>Половина работы всё равно в Excel</h3>
+      <p>Производство, склад или расчёты не влезли — их ведут отдельно и сводят руками.</p>
+    </div></div>
+    <div class="chk"><span class="ic x">✕</span><div>
+      <h3>Подписка навсегда</h3>
+      <p>Каждый модуль и каждый новый сотрудник — плюс к ежемесячному счёту. Остановите оплату — потеряете доступ.</p>
+    </div></div>
+    <div class="chk"><span class="ic x">✕</span><div>
+      <h3>Данные лежат не у вас</h3>
+      <p>База вашего бизнеса — на чужом сервере, по чужим правилам.</p>
+    </div></div>
+  </div>
+
+  <div class="brandmark">Предложение по автоматизации</div>
+  <div class="pageno">04</div>
+</section>
+
+<!-- ============ 5. БОЛЬ: 10% ВОЗМОЖНОСТЕЙ ============ -->
+<section class="page">
+  <div class="kicker">Боль третья</div>
+  <h2>Система есть.<br>Ей не пользуются</h2>
+  <p class="lead">Внедрили большую платформу — и заблудились в ней.</p>
+
+  <div class="usage">
+    <div class="usage-t"><span>Оплачено возможностей</span><span>Используется</span></div>
+    <div class="usage-bar"><i></i></div>
+    <div class="usage-legend"><span>100% — за это платите</span><span>10% — этим работаете</span></div>
+  </div>
+
+  <div class="stack">
+    <div class="card"><div class="num red">1</div><div>
+      <div class="card-t">200 кнопок, нужны 12</div>
+      <div class="card-d">Сотрудник тратит время на поиск нужного экрана, а не на работу.</div>
+    </div></div>
+    <div class="card"><div class="num red">2</div><div>
+      <div class="card-t">Обучали неделю — забыли за месяц</div>
+      <div class="card-d">Сложный интерфейс не удерживается в голове у тех, кто не сидит в нём весь день.</div>
+    </div></div>
+    <div class="card"><div class="num red">3</div><div>
+      <div class="card-t">Все вернулись в WhatsApp</div>
+      <div class="card-d">Заявки снова летят в переписке, склад снова в тетради. Система стоит пустая.</div>
+    </div></div>
+    <div class="card"><div class="num red">4</div><div>
+      <div class="card-t">Оплачено сто, работает десять</div>
+      <div class="card-d">Цена растёт с числом сотрудников, отдача — нет.</div>
+    </div></div>
+  </div>
+
+  <div class="brandmark">Предложение по автоматизации</div>
+  <div class="pageno">05</div>
+</section>
+
+<!-- ============ 6. НАШ ПОДХОД ============ -->
+<section class="page">
+  <div class="kicker">Решение</div>
+  <h2>Система, собранная<br>по вашему процессу</h2>
+  <p class="lead">Не универсальная платформа, которую вы подстраиваете под себя. Наоборот.</p>
+
+  <div class="stack">
+    <div class="card tinted"><div class="num">1</div><div>
+      <div class="card-t">Сначала процесс, потом код</div>
+      <div class="card-d">Разбираем день каждой роли по операциям: кто что делает, где теряется время и деньги. Экраны рисуются уже под это.</div>
+    </div></div>
+    <div class="card tinted"><div class="num">2</div><div>
+      <div class="card-t">Только нужные экраны</div>
+      <div class="card-d">Кладовщику — три кнопки. Менеджеру — заявки и заказы. Директору — деньги и итоги. Лишнего никто не видит.</div>
+    </div></div>
+    <div class="card tinted"><div class="num">3</div><div>
+      <div class="card-t">У каждой роли свой доступ</div>
+      <div class="card-d">Права настраиваются точечно: кто видит суммы, кто редактирует остатки, кто только смотрит.</div>
+    </div></div>
+    <div class="card tinted"><div class="num">4</div><div>
+      <div class="card-t">С телефона, без установки</div>
+      <div class="card-d">Открывается в браузере на любом устройстве — из цеха, из машины, из дома.</div>
+    </div></div>
+    <div class="card tinted"><div class="num">5</div><div>
+      <div class="card-t">Система принадлежит вам</div>
+      <div class="card-d">Код, база и сервер — ваши. Никакой подписки за право пользоваться собственными данными.</div>
+    </div></div>
+  </div>
+
+  <div class="brandmark">Предложение по автоматизации</div>
+  <div class="pageno">06</div>
+</section>
+
+<!-- ============ 7. СКРИН: ДАШБОРД ============ -->
+<section class="page">
+  <div class="kicker">Как это выглядит · 1</div>
+  <h2>Дашборд:<br>всё предприятие<br>на одном экране</h2>
+
+  <div class="screen">
+    <div class="sc-chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="sc-url">erp.вашбизнес.kz</span></div>
+    <div class="sc-body">
+      <div class="sb">
+        <div class="sb-logo">ВАША ERP</div>
+        <div class="sb-grp">CRM</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 8l9 6 9-6"/></svg>Заявки</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-5.5 7-5.5s7 1.9 7 5.5"/></svg>Клиенты</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5l8 4.5 8-4.5"/></svg>Заказы</div>
+        <div class="sb-grp">ОТЧЁТЫ</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.6"/></svg>Дебиторка</div>
+        <div class="sb-i on"><svg viewBox="0 0 24 24"><path d="M4.5 16.5a7.5 7.5 0 0 1 15 0"/><path d="M12 16.5l3.5-4.5"/></svg>Дашборд</div>
+        <div class="sb-grp">СКЛАД</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="5" rx="1.2"/><rect x="3" y="9.5" width="18" height="10" rx="1.2"/></svg>Остатки</div>
+      </div>
+      <div class="sc-main">
+        <div class="sc-top"><div class="sc-h">Дашборд · август</div><span class="btn ghost">Период</span></div>
+        <div class="kpis">
+          <div class="kpi"><div class="kpi-l">Выручка</div><div class="kpi-v">18 450 000 ₸</div><div class="kpi-d up">▲ 12% к июлю</div></div>
+          <div class="kpi"><div class="kpi-l">Отгружено</div><div class="kpi-v">214 300 шт</div><div class="kpi-d up">▲ 8%</div></div>
+          <div class="kpi"><div class="kpi-l">Дебиторка</div><div class="kpi-v">3 120 000 ₸</div><div class="kpi-d down">▼ 4 просрочки</div></div>
+          <div class="kpi"><div class="kpi-l">Новых заявок</div><div class="kpi-v">47</div><div class="kpi-d up">▲ 15</div></div>
+        </div>
+        <div class="chart">
+          <div class="chart-t">Отгрузка по дням</div>
+          <div class="bars">
+            <div class="bar" style="height:48%"></div>
+            <div class="bar" style="height:66%"></div>
+            <div class="bar" style="height:41%"></div>
+            <div class="bar" style="height:78%"></div>
+            <div class="bar hi" style="height:96%"></div>
+            <div class="bar" style="height:62%"></div>
+            <div class="bar" style="height:30%"></div>
+          </div>
+          <div class="blabels"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gains">
+    <div class="gain"><i>✓</i><div>Директор открывает телефон утром и за 10 секунд знает, как идут дела.</div></div>
+    <div class="gain"><i>✓</i><div>Цифры считает система — их не нужно сводить и некому подкрутить.</div></div>
+  </div>
+
+  <div class="brandmark">Экран системы · демо-данные</div>
+  <div class="pageno">07</div>
+</section>
+
+<!-- ============ 8. СКРИН: ЗАКАЗЫ ============ -->
+<section class="page">
+  <div class="kicker">Как это выглядит · 2</div>
+  <h2>Заказы:<br>ни один не потеряется</h2>
+
+  <div class="screen">
+    <div class="sc-chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="sc-url">erp.вашбизнес.kz/orders</span></div>
+    <div class="sc-body">
+      <div class="sb">
+        <div class="sb-logo">ВАША ERP</div>
+        <div class="sb-grp">CRM</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 8l9 6 9-6"/></svg>Заявки</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-5.5 7-5.5s7 1.9 7 5.5"/></svg>Клиенты</div>
+        <div class="sb-i on"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5l8 4.5 8-4.5"/></svg>Заказы</div>
+        <div class="sb-grp">ОТЧЁТЫ</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.6"/></svg>Дебиторка</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M12 20V6"/><path d="M17.5 20v-9"/></svg>Отчёты</div>
+        <div class="sb-grp">СКЛАД</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="5" rx="1.2"/><rect x="3" y="9.5" width="18" height="10" rx="1.2"/></svg>Остатки</div>
+      </div>
+      <div class="sc-main">
+        <div class="sc-top"><div class="sc-h">Заказы</div><span class="btn">+ Новый</span></div>
+        <div class="tbl">
+          <div class="tr head"><span class="c" style="flex:0 0 6mm">№</span><span class="c" style="flex:1">Клиент</span><span class="c r" style="flex:0 0 11.5mm">Сумма</span><span class="c r" style="flex:0 0 13mm">Статус</span></div>
+          <div class="tr"><span class="c" style="flex:0 0 6mm">1042</span><span class="c" style="flex:1">ТОО «Алтын Құрылыс»</span><span class="c r" style="flex:0 0 11.5mm">840 000</span><span class="c r" style="flex:0 0 13mm"><span class="pill p-paid">Оплачен</span></span></div>
+          <div class="tr"><span class="c" style="flex:0 0 6mm">1041</span><span class="c" style="flex:1">ИП Сериков А.</span><span class="c r" style="flex:0 0 11.5mm">312 500</span><span class="c r" style="flex:0 0 13mm"><span class="pill p-ship">Отгружен</span></span></div>
+          <div class="tr"><span class="c" style="flex:0 0 6mm">1040</span><span class="c" style="flex:1">ТОО «Строй-Маркет»</span><span class="c r" style="flex:0 0 11.5mm">1 260 000</span><span class="c r" style="flex:0 0 13mm"><span class="pill p-ready">Готов</span></span></div>
+          <div class="tr"><span class="c" style="flex:0 0 6mm">1039</span><span class="c" style="flex:1">ТОО «Мега Дом»</span><span class="c r" style="flex:0 0 11.5mm">675 000</span><span class="c r" style="flex:0 0 13mm"><span class="pill p-prod">В работе</span></span></div>
+          <div class="tr"><span class="c" style="flex:0 0 6mm">1038</span><span class="c" style="flex:1">ИП Абдуллаев Р.</span><span class="c r" style="flex:0 0 11.5mm">198 000</span><span class="c r" style="flex:0 0 13mm"><span class="pill p-new">Новый</span></span></div>
+          <div class="tr"><span class="c" style="flex:0 0 6mm">1037</span><span class="c" style="flex:1">ТОО «Тас Групп»</span><span class="c r" style="flex:0 0 11.5mm">1 495 000</span><span class="c r" style="flex:0 0 13mm"><span class="pill p-ship">Отгружен</span></span></div>
+          <div class="tr tot"><span class="c" style="flex:1">Итого за неделю</span><span class="c r" style="flex:0 0 28mm">4 780 500 ₸</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gains">
+    <div class="gain"><i>✓</i><div>Заказ идёт по статусам — видно, где он застрял и кто за него отвечает.</div></div>
+    <div class="gain"><i>✓</i><div>У каждого заказа свой номер: по нему говорят менеджер, склад и бухгалтерия.</div></div>
+    <div class="gain"><i>✓</i><div>История правок сохраняется — всегда понятно, кто и что менял.</div></div>
+  </div>
+
+  <div class="brandmark">Экран системы · демо-данные</div>
+  <div class="pageno">08</div>
+</section>
+
+<!-- ============ 9. СКРИН: ДЕБИТОРКА ============ -->
+<section class="page">
+  <div class="kicker">Как это выглядит · 3</div>
+  <h2>Дебиторка:<br>кто должен<br>и сколько дней</h2>
+
+  <div class="screen">
+    <div class="sc-chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="sc-url">erp.вашбизнес.kz/debts</span></div>
+    <div class="sc-body">
+      <div class="sb">
+        <div class="sb-logo">ВАША ERP</div>
+        <div class="sb-grp">CRM</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-5.5 7-5.5s7 1.9 7 5.5"/></svg>Клиенты</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5l8 4.5 8-4.5"/></svg>Заказы</div>
+        <div class="sb-grp">ОТЧЁТЫ</div>
+        <div class="sb-i on"><svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.6"/></svg>Дебиторка</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M12 20V6"/><path d="M17.5 20v-9"/></svg>Отчёты</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><path d="M4.5 16.5a7.5 7.5 0 0 1 15 0"/><path d="M12 16.5l3.5-4.5"/></svg>Дашборд</div>
+      </div>
+      <div class="sc-main">
+        <div class="sc-top"><div class="sc-h">Дебиторская задолженность</div><span class="btn ghost">Excel</span></div>
+        <div class="kpis" style="margin-bottom:1.6mm">
+          <div class="kpi"><div class="kpi-l">Всего долг</div><div class="kpi-v">3 120 000 ₸</div></div>
+          <div class="kpi"><div class="kpi-l">Просрочено</div><div class="kpi-v" style="color:#DC2626">1 045 000 ₸</div></div>
+        </div>
+        <div class="tbl">
+          <div class="tr head"><span class="c" style="flex:1">Клиент</span><span class="c r" style="flex:0 0 11.5mm">Долг</span><span class="c r" style="flex:0 0 12mm">Просрочка</span></div>
+          <div class="tr"><span class="c" style="flex:1">ТОО «Мега Дом»</span><span class="c r" style="flex:0 0 11.5mm">620 000</span><span class="c r" style="flex:0 0 12mm"><span class="pill p-late">41 день</span></span></div>
+          <div class="tr"><span class="c" style="flex:1">ИП Абдуллаев Р.</span><span class="c r" style="flex:0 0 11.5mm">425 000</span><span class="c r" style="flex:0 0 12mm"><span class="pill p-late">23 дня</span></span></div>
+          <div class="tr"><span class="c" style="flex:1">ТОО «Тас Групп»</span><span class="c r" style="flex:0 0 11.5mm">890 000</span><span class="c r" style="flex:0 0 12mm"><span class="pill p-new">в сроке</span></span></div>
+          <div class="tr"><span class="c" style="flex:1">ИП Сериков А.</span><span class="c r" style="flex:0 0 11.5mm">310 000</span><span class="c r" style="flex:0 0 12mm"><span class="pill p-new">в сроке</span></span></div>
+          <div class="tr"><span class="c" style="flex:1">ТОО «Строй-Маркет»</span><span class="c r" style="flex:0 0 11.5mm">875 000</span><span class="c r" style="flex:0 0 12mm"><span class="pill p-new">в сроке</span></span></div>
+          <div class="tr tot"><span class="c" style="flex:1">Итого</span><span class="c r" style="flex:0 0 25mm">3 120 000 ₸</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gains">
+    <div class="gain"><i>✓</i><div>Долги больше не «вспоминают» — список открыт каждый день и сам краснеет.</div></div>
+    <div class="gain"><i>✓</i><div>Деньги возвращаются в оборот быстрее: видно, кому звонить в первую очередь.</div></div>
+  </div>
+
+  <div class="brandmark">Экран системы · демо-данные</div>
+  <div class="pageno">09</div>
+</section>
+
+<!-- ============ 10. СКРИН: СКЛАД ============ -->
+<section class="page">
+  <div class="kicker">Как это выглядит · 4</div>
+  <h2>Склад:<br>точный остаток,<br>а не «примерно»</h2>
+
+  <div class="screen">
+    <div class="sc-chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="sc-url">erp.вашбизнес.kz/stock</span></div>
+    <div class="sc-body">
+      <div class="sb">
+        <div class="sb-logo">ВАША ERP</div>
+        <div class="sb-grp">CRM</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5l8 4.5 8-4.5"/></svg>Заказы</div>
+        <div class="sb-grp">СКЛАД</div>
+        <div class="sb-i on"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="5" rx="1.2"/><rect x="3" y="9.5" width="18" height="10" rx="1.2"/><path d="M9 14h6"/></svg>Остатки</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>Приход</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><path d="M3 21V10l6 4V10l6 4V7l6 3v11H3z"/><path d="M3 21h18"/></svg>Производство</div>
+        <div class="sb-grp">ОТЧЁТЫ</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M12 20V6"/><path d="M17.5 20v-9"/></svg>Отчёты</div>
+      </div>
+      <div class="sc-main">
+        <div class="sc-top"><div class="sc-h">Остатки на складе</div><span class="btn ghost">Сегодня</span></div>
+        <div class="tbl">
+          <div class="tr head"><span class="c" style="flex:1">Номенклатура</span><span class="c r" style="flex:0 0 11.5mm">Остаток</span></div>
+          <div class="tr" style="flex-direction:column;justify-content:center;align-items:stretch">
+            <div style="display:flex"><span class="c" style="flex:1">Кирпич рядовой М-150</span><span class="c r" style="flex:0 0 11.5mm;font-weight:700">86 400 шт</span></div>
+            <div class="prog"><i style="width:78%"></i></div>
+          </div>
+          <div class="tr" style="flex-direction:column;justify-content:center;align-items:stretch">
+            <div style="display:flex"><span class="c" style="flex:1">Кирпич облицовочный</span><span class="c r" style="flex:0 0 11.5mm;font-weight:700">32 150 шт</span></div>
+            <div class="prog"><i class="mid" style="width:38%"></i></div>
+          </div>
+          <div class="tr" style="flex-direction:column;justify-content:center;align-items:stretch">
+            <div style="display:flex"><span class="c" style="flex:1">Кирпич полнотелый</span><span class="c r" style="flex:0 0 11.5mm;font-weight:700;color:#DC2626">4 800 шт</span></div>
+            <div class="prog"><i class="low" style="width:9%"></i></div>
+          </div>
+          <div class="tr" style="flex-direction:column;justify-content:center;align-items:stretch">
+            <div style="display:flex"><span class="c" style="flex:1">Блок стеновой</span><span class="c r" style="flex:0 0 11.5mm;font-weight:700">12 700 шт</span></div>
+            <div class="prog"><i style="width:64%"></i></div>
+          </div>
+          <div class="tr" style="background:#FEF2F2">
+            <span class="c" style="flex:1;color:#DC2626;font-weight:700">Ниже минимума — 1 позиция</span>
+            <span class="c r" style="flex:0 0 11.5mm"><span class="pill p-late">заказать</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gains">
+    <div class="gain"><i>✓</i><div>Приход, отгрузка и остаток пересчитываются сами, в момент операции.</div></div>
+    <div class="gain"><i>✓</i><div>Система сама предупреждает, когда позиция подходит к минимуму.</div></div>
+    <div class="gain"><i>✓</i><div>Менеджер не продаст то, чего нет на складе.</div></div>
+  </div>
+
+  <div class="brandmark">Экран системы · демо-данные</div>
+  <div class="pageno">10</div>
+</section>
+
+<!-- ============ 11. СКРИН: ОТЧЁТЫ ============ -->
+<section class="page">
+  <div class="kicker">Как это выглядит · 5</div>
+  <h2>Отчёты:<br>кнопка вместо<br>вечера в Excel</h2>
+
+  <div class="screen">
+    <div class="sc-chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="sc-url">erp.вашбизнес.kz/reports</span></div>
+    <div class="sc-body">
+      <div class="sb">
+        <div class="sb-logo">ВАША ERP</div>
+        <div class="sb-grp">CRM</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5l8 4.5 8-4.5"/></svg>Заказы</div>
+        <div class="sb-grp">ОТЧЁТЫ</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.6"/></svg>Дебиторка</div>
+        <div class="sb-i on"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6.5 20v-6"/><path d="M12 20V6"/><path d="M17.5 20v-9"/></svg>Отчёты</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><path d="M4.5 16.5a7.5 7.5 0 0 1 15 0"/><path d="M12 16.5l3.5-4.5"/></svg>Дашборд</div>
+        <div class="sb-grp">УПРАВЛЕНИЕ</div>
+        <div class="sb-i"><svg viewBox="0 0 24 24"><path d="M12 15V4"/><path d="M8 8l4-4 4 4"/><path d="M5 15v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3"/></svg>Выгрузка</div>
+      </div>
+      <div class="sc-main">
+        <div class="sc-top"><div class="sc-h">Журнал отгрузок</div><span class="btn green">Excel</span></div>
+        <div class="tbl">
+          <div class="tr head"><span class="c" style="flex:0 0 8mm">Дата</span><span class="c" style="flex:1">Клиент</span><span class="c r" style="flex:0 0 10mm">Кол-во</span><span class="c r" style="flex:0 0 12mm">Источник</span></div>
+          <div class="tr"><span class="c" style="flex:0 0 8mm">04.08</span><span class="c" style="flex:1">ТОО «Алтын Құрылыс»</span><span class="c r" style="flex:0 0 10mm">12 000</span><span class="c r" style="flex:0 0 12mm"><span class="pill p-new">Сайт</span></span></div>
+          <div class="tr"><span class="c" style="flex:0 0 8mm">04.08</span><span class="c" style="flex:1">ИП Сериков А.</span><span class="c r" style="flex:0 0 10mm">4 500</span><span class="c r" style="flex:0 0 12mm"><span class="pill p-ready">Звонок</span></span></div>
+          <div class="tr"><span class="c" style="flex:0 0 8mm">03.08</span><span class="c" style="flex:1">ТОО «Строй-Маркет»</span><span class="c r" style="flex:0 0 10mm">18 000</span><span class="c r" style="flex:0 0 12mm"><span class="pill p-prod">Instagram</span></span></div>
+          <div class="tr"><span class="c" style="flex:0 0 8mm">03.08</span><span class="c" style="flex:1">ТОО «Тас Групп»</span><span class="c r" style="flex:0 0 10mm">21 400</span><span class="c r" style="flex:0 0 12mm"><span class="pill p-new">Сайт</span></span></div>
+          <div class="tr"><span class="c" style="flex:0 0 8mm">02.08</span><span class="c" style="flex:1">ИП Абдуллаев Р.</span><span class="c r" style="flex:0 0 10mm">6 200</span><span class="c r" style="flex:0 0 12mm"><span class="pill p-ready">Звонок</span></span></div>
+          <div class="tr tot"><span class="c" style="flex:1">Итого за период</span><span class="c r" style="flex:0 0 22mm">62 100 шт</span></div>
+        </div>
+        <div class="chart" style="margin-top:1.6mm">
+          <div class="chart-t">Откуда пришли заказы</div>
+          <div class="bars" style="height:7mm">
+            <div class="bar hi" style="height:100%"></div>
+            <div class="bar" style="height:64%"></div>
+            <div class="bar" style="height:44%"></div>
+            <div class="bar" style="height:22%"></div>
+          </div>
+          <div class="blabels"><span>Сайт</span><span>Звонок</span><span>Instagram</span><span>Прочее</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gains">
+    <div class="gain"><i>✓</i><div>Любой отчёт — за секунды, в Excel одной кнопкой.</div></div>
+    <div class="gain"><i>✓</i><div>Видно, какая реклама реально приносит заказы, а какая тратит бюджет.</div></div>
+  </div>
+
+  <div class="brandmark">Экран системы · демо-данные</div>
+  <div class="pageno">11</div>
+</section>
+
+<!-- ============ 12. СКРИН: ТЕЛЕФОН ============ ============ -->
+<section class="page">
+  <div class="kicker">Как это выглядит · 6</div>
+  <h2>В цехе — телефон<br>и три кнопки</h2>
+  <p class="lead">Кладовщику не нужен компьютер и обучение. Экран сделан под его руки и его задачу.</p>
+
+  <div class="phone">
+    <div class="ph-notch"><i></i></div>
+    <div class="ph-screen">
+      <div class="ph-hd">
+        <div class="t">Заказ №1042</div>
+        <div class="s">ТОО «Алтын Құрылыс» · сегодня</div>
+      </div>
+      <div class="ph-b">
+        <div class="ph-row"><span>Кирпич М-150</span><b>12 000 шт</b></div>
+        <div class="ph-row"><span>Машин</span><b>3</b></div>
+        <div class="ph-row"><span>Водитель</span><b>Ержан Т.</b></div>
+        <div class="ph-row"><span>Адрес</span><b>ул. Тәуке хана, 45</b></div>
+        <div class="ph-row"><span>Оплата</span><b style="color:#059669">Оплачено</b></div>
+        <div class="ph-row" style="border-bottom:0"><span>Статус</span><b style="color:#D97706">Готов к отгрузке</b></div>
+        <div class="ph-btn g">Отгрузить</div>
+        <div class="ph-btn o">Фото накладной</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gains push">
+    <div class="gain"><i>✓</i><div>Отметка делается сразу на месте — не «потом занесу в тетрадь».</div></div>
+    <div class="gain"><i>✓</i><div>Новый сотрудник разбирается за час, без инструктора.</div></div>
+    <div class="gain"><i>✓</i><div>Интерфейс можно сделать на казахском — как удобно людям в цехе.</div></div>
+  </div>
+
+  <div class="brandmark">Экран системы · демо-данные</div>
+  <div class="pageno">12</div>
+</section>
+
+<!-- ============ 13. ДО / ПОСЛЕ ============ -->
+<section class="page">
+  <div class="kicker">Результат</div>
+  <h2>Что меняется<br>в первый месяц</h2>
+
+  <div class="ba">
+    <div class="ba-r h"><div class="ba-c k">&nbsp;</div><div class="ba-c was" style="color:var(--ink)">Было</div><div class="ba-c now" style="color:var(--ink)">Стало</div></div>
+    <div class="ba-r"><div class="ba-c k">Учёт</div><div class="ba-c was">Тетрадь, Excel, память</div><div class="ba-c now">Одна база, всё в одном месте</div></div>
+    <div class="ba-r"><div class="ba-c k">Отчёт</div><div class="ba-c was">Вечер ручной сводки</div><div class="ba-c now">Кнопка, пять секунд</div></div>
+    <div class="ba-r"><div class="ba-c k">Долги</div><div class="ba-c was">Вспоминаем сами</div><div class="ba-c now">Список с просрочкой каждый день</div></div>
+    <div class="ba-r"><div class="ba-c k">Остатки</div><div class="ba-c was">«Примерно столько»</div><div class="ba-c now">Точная цифра онлайн</div></div>
+    <div class="ba-r"><div class="ba-c k">Доступ</div><div class="ba-c was">Файл на одном компьютере</div><div class="ba-c now">Телефон, из любой точки</div></div>
+    <div class="ba-r"><div class="ba-c k">Ошибки</div><div class="ba-c was">Замечаем через месяц</div><div class="ba-c now">Видно сразу, есть история</div></div>
+    <div class="ba-r"><div class="ba-c k">Новичок</div><div class="ba-c was">Учится неделями</div><div class="ba-c now">Три экрана, разбирается за час</div></div>
+  </div>
+
+  <div class="brandmark">Предложение по автоматизации</div>
+  <div class="pageno">13</div>
+</section>
+
+<!-- ============ 14. КАК РАБОТАЕМ ============ -->
+<section class="page">
+  <div class="kicker">Порядок работы</div>
+  <h2>Как мы это<br>делаем</h2>
+  <p class="lead">Без длинных презентаций. Вы видите работающие экраны с самого начала.</p>
+
+  <div class="steps">
+    <div class="step"><span class="rail"></span><span class="n">1</span><div>
+      <h3>Разбираем ваш процесс</h3>
+      <p>Проходим день каждой роли: менеджер, склад, производство, бухгалтерия, директор. Получаем карту операций и список экранов, которые действительно нужны.</p>
+    </div></div>
+    <div class="step"><span class="rail"></span><span class="n">2</span><div>
+      <h3>Собираем прототип</h3>
+      <p>Делаем рабочую версию главного куска системы. Вы не смотрите слайды — вы кликаете и говорите, что поправить.</p>
+    </div></div>
+    <div class="step"><span class="rail"></span><span class="n">3</span><div>
+      <h3>Внедряем и обучаем</h3>
+      <p>Переносим ваши данные, заводим сотрудников и права, обучаем каждую роль и оставляем короткие печатные инструкции.</p>
+    </div></div>
+    <div class="step"><span class="rail"></span><span class="n">4</span><div>
+      <h3>Сопровождаем и дорабатываем</h3>
+      <p>Бизнес меняется — система меняется вместе с ним. Новая задача превращается в новый экран, а не в очередной файл Excel.</p>
+    </div></div>
+  </div>
+
+  <div class="brandmark">Предложение по автоматизации</div>
+  <div class="pageno">14</div>
+</section>
+
+<!-- ============ 15. О РАЗРАБОТЧИКЕ ============ -->
+<section class="page">
+  <div class="kicker">Кто делает</div>
+  <h2>Инженер, который<br>знает цех</h2>
+  <p class="lead">Редкое сочетание: сильная техническая база и живое понимание производственной рутины.</p>
+
+  <div class="skill">
+    <span class="skill-badge">Hard skills · разработка</span>
+    <h3>Полный цикл своими руками</h3>
+    <p style="margin-top:1.2mm">База данных, сервер, интерфейс, права доступа, мобильная версия, интеграции и выгрузки. Система пишется под задачу — поэтому в ней не бывает ответа «так не умеет».</p>
+  </div>
+
+  <div class="skill acc">
+    <span class="skill-badge alt">Soft skills · производство</span>
+    <h3>Разговор на языке бизнеса</h3>
+    <p style="margin-top:1.2mm">Умение сесть с кладовщиком, менеджером и директором и разложить их день на операции. Понимание, где в цехе и на складе теряются деньги и время.</p>
+  </div>
+
+  <div class="cases">
+    <div class="case">
+      <div class="case-l">Кейс 01</div>
+      <div class="case-t">Кирпичный завод</div>
+      <div class="case-d">Работающая ERP: заявки, заказы, отгрузка, склад, дебиторка, роли, отчёты.</div>
+    </div>
+    <div class="case">
+      <div class="case-l">Кейс 02</div>
+      <div class="case-t">Оконное производство</div>
+      <div class="case-d">Автоматизация производственного учёта и повседневной операционной рутины.</div>
+    </div>
+  </div>
+
+  <div class="brandmark">Предложение по автоматизации</div>
+  <div class="pageno">15</div>
+</section>
+
+<!-- ============ 16. КОНТАКТЫ ============ -->
+<section class="page dark">
+  <div class="cover-grid"></div>
+  <div class="cover-body">
+    <div class="kicker">Следующий шаг</div>
+    <h1 style="font-size:17pt">Разберём ваш процесс — бесплатно</h1>
+    <p class="lead">40 минут разговора. Покажу, какую рутину можно убрать первой и что это даст в деньгах.</p>
+
+    <div class="final-list">
+      <div><em>01</em><span>Вы рассказываете, как устроен день на предприятии</span></div>
+      <div><em>02</em><span>Я показываю узкие места и что автоматизируется в первую очередь</span></div>
+      <div><em>03</em><span>Вы получаете понятный план — без обязательств</span></div>
+    </div>
+
+    <div class="cta-box">
+      <div class="cta-sub" style="margin-top:0;margin-bottom:2mm">Позвоните или напишите</div>
+      <div class="cta-phone">+7 707 175 1983</div>
+    </div>
+
+    <div style="margin-top:auto">
+      <p style="font-size:6.4pt;color:#A8C4FF">Разработка систем учёта и управления для производства, торговли и склада.</p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
